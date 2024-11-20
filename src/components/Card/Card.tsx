@@ -1,5 +1,4 @@
 import { ShoppingCartIcon } from "../../assets/ShoppingCartIcon";
-import { defaultThumbNail } from "../../contants/thumbNail";
 
 export type CardProps = {
   src: string;
@@ -8,7 +7,7 @@ export type CardProps = {
   price: number;
 };
 
-export function Card({ alt, src = defaultThumbNail, name, price }: CardProps) {
+export function Card({ alt, src, name, price }: CardProps) {
   return (
     <div className="bg-gray-200 p-3 grow flex flex-col items-center">
       <div className="flex justify-between w-full">
