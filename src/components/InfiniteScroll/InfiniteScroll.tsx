@@ -16,6 +16,7 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
   const { items, isLoading, hasMore } = props;
   const { showButton, loadMoreRef, handleButtonClick } =
     useInfiniteScroll(props);
+
   return (
     <div className="my-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center">
@@ -32,7 +33,12 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
       <div ref={loadMoreRef} />
       {isLoading && (
         <div className="my-8 flex items-center justify-center">
-          <div className={styles.loader} />
+          <div
+            role="status"
+            className={styles.loader}
+            aria-live="polite"
+            aria-label="Loading"
+          />
         </div>
       )}
       {!hasMore && (
