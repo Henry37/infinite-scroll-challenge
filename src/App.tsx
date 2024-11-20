@@ -4,7 +4,7 @@ import InfiniteScroll from "./components/InfiniteScroll/InfiniteScroll";
 import { Product } from "./interfaces/product";
 import { PaginatedDataFetcher } from "./data/PaginatedDataFetcher";
 import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./constants/urls";
-import { INITIAL_SCROLL_LIMIT } from "./constants/infinitScroll";
+import { DEFAULT_SCROLL_AUTOLOAD, DEFAULT_SCROLL_LIMIT } from "./constants/infinitScroll";
 import { LimitedProductData } from "./interfaces/response";
 import { isLimitedProductData } from "./guards/responseGuard";
 
@@ -64,8 +64,8 @@ function App() {
         <section className="px-20 py-12 bg-gray-100">
           <h2 className="text-3xl font-semibold text-black">Our products.</h2>
           <InfiniteScroll
-            autoLoad={2}
-            limit={INITIAL_SCROLL_LIMIT}
+            autoLoad={DEFAULT_SCROLL_AUTOLOAD}
+            limit={DEFAULT_SCROLL_LIMIT}
             items={products}
             isLoading={isLoading}
             loadMore={loadMore}

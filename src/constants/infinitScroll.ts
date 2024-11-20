@@ -1,1 +1,2 @@
-export const INITIAL_SCROLL_LIMIT = 10;
+export const DEFAULT_SCROLL_LIMIT = 10;
+export const DEFAULT_SCROLL_AUTOLOAD = 2;
