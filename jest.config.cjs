@@ -21,4 +21,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.module\\.css$': 'identity-obj-proxy',
   },
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/tests/",
+  ],
 };
