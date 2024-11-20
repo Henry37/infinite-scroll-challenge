@@ -3,8 +3,8 @@ import "./App.css";
 import InfiniteScroll from "./components/InfiniteScroll/InfiniteScroll";
 import { Product } from "./interfaces/product";
 import { PaginatedDataFetcher } from "./data/PaginatedDataFetcher";
-import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./contants/urls";
-import { INITIAL_SCROLL_LIMIT } from "./contants/infinitScroll";
+import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./constants/urls";
+import { INITIAL_SCROLL_LIMIT } from "./constants/infinitScroll";
 import { LimitedProductData } from "./interfaces/response";
 import { isLimitedProductData } from "./guards/responseGuard";
 
@@ -22,22 +22,22 @@ function App() {
         PRODUCT_PATH,
         limit,
         skip,
-        SELECT_PARAMS
+        SELECT_PARAMS,
       );
 
       if (!isLimitedProductData(data)) {
-        throw new Error('Data is not of type LimitedProductData');
+        throw new Error("Data is not of type LimitedProductData");
       }
 
       setProducts((prevProducts) => [...prevProducts, ...data.products]);
       setHasMore(data.products.length >= limit);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setHasMore(false);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -63,15 +63,14 @@ function App() {
         </section>
         <section className="px-20 py-12 bg-gray-100">
           <h2 className="text-3xl font-semibold text-black">Our products.</h2>
-          <div className="pt-8 flex gap-4 flex-wrap">
-            <InfiniteScroll
-              limit={INITIAL_SCROLL_LIMIT}
-              items={products}
-              isLoading={isLoading}
-              loadMore={loadMore}
-              hasMore={hasMore}
-            />
-          </div>
+          <InfiniteScroll
+            autoLoad={2}
+            limit={INITIAL_SCROLL_LIMIT}
+            items={products}
+            isLoading={isLoading}
+            loadMore={loadMore}
+            hasMore={hasMore}
+          />
         </section>
       </main>
     </>
