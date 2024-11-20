@@ -1,4 +1,4 @@
-import { ShoppingCartIcon } from "./assets/ShoppingCartIcon";
+import { ShoppingCartIcon } from "../../assets/ShoppingCartIcon";
 
 export type CardProps = {
   src: string;
