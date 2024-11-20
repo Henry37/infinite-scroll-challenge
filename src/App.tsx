@@ -4,10 +4,14 @@ import InfiniteScroll from "./components/InfiniteScroll/InfiniteScroll";
 import { Product } from "./interfaces/product";
 import { PaginatedDataFetcher } from "./data/PaginatedDataFetcher";
 import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./constants/urls";
-import { DEFAULT_SCROLL_AUTOLOAD, DEFAULT_SCROLL_LIMIT } from "./constants/infinitScroll";
+import {
+  DEFAULT_SCROLL_AUTOLOAD,
+  DEFAULT_SCROLL_LIMIT,
+} from "./constants/infinitScroll";
 import { LimitedProductData } from "./interfaces/response";
 import { isLimitedProductData } from "./guards/responseGuard";
 import Nav from "./components/Nav/Nav";
+import HeroBanner from "./components/HeroBanner/HeroBanner";
 
 const dataFetcher = new PaginatedDataFetcher(BASE_URL);
 
@@ -44,19 +48,7 @@ function App() {
     <div>
       <Nav />
       <main className="flex flex-col grow">
-        <section
-          style={{
-            backgroundImage: "url('/hero-image.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-          className="h-screen pt-32 pl-20"
-        >
-          <h1>
-            <span className="block">Your workspace.</span>
-            <span className="block">Reinvented.</span>
-          </h1>
-        </section>
+        <HeroBanner />
         <section className="px-20 py-12 bg-gray-100">
           <h2 className="text-3xl font-semibold text-black">Our products.</h2>
           <InfiniteScroll
