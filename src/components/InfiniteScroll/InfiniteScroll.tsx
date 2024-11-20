@@ -1,6 +1,7 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from "react";
 import { Product } from "../../interfaces/product";
 import { Card } from "../Card/Card";
+import styles from "./InfiniteScroll.module.css";
 
 interface InfiniteScrollProps {
   limit: number;
@@ -22,7 +23,7 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
         loadMore(items.length, limit);
       }
     },
-    [isLoading, hasMore, items.length, limit, loadMore]
+    [isLoading, hasMore, items.length, limit, loadMore],
   );
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
 
     observerRef.current = new IntersectionObserver(handleObserver, {
       root: null,
-      rootMargin: '0px',
+      rootMargin: "0px",
       threshold: 1.0,
     });
 
@@ -43,17 +44,28 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
 
   return (
     <div>
-      {items.map((item) => (
-        <Card
-          src={item.thumbnail}
-          alt={item.title}
-          name={item.title}
-          price={item.price}
-          key={item.id}
-        />
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center">
+        {items.map((item) => (
+          <Card
+            src={item.thumbnail}
+            alt={item.title}
+            name={item.title}
+            price={item.price}
+            key={item.id}
+          />
+        ))}
+      </div>
       <div ref={loadMoreRef} />
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className="my-8 flex items-center justify-center">
+          <div className={styles.loader} />
+        </div>
+      )}
+      {!hasMore && (
+        <div className="my-8 flex items-center justify-center">
+          <p className="text-gray-500">End of the product list</p>
+        </div>
+      )}
     </div>
   );
 };
