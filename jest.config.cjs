@@ -1,5 +1,4 @@
 module.exports = {
-  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 85,
@@ -19,4 +18,7 @@ module.exports = {
     ],
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  moduleNameMapper: {
+    '\\.module\\.css$': 'identity-obj-proxy',
+  },
 };
