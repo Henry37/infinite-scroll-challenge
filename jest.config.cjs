@@ -20,6 +20,7 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleNameMapper: {
     '\\.module\\.css$': 'identity-obj-proxy',
+    '\\.(css|less|scss|sass)$': '<rootDir>/src/tests/mocks/cssMock.ts',
   },
   coveragePathIgnorePatterns: [
     "<rootDir>/src/tests/",
