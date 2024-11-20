@@ -1,5 +1,5 @@
 import { Product } from "../../interfaces/product";
-import { Card } from "../Card/Card";
+import Card from "../Card/Card";
 import styles from "./InfiniteScroll.module.css";
 import { useInfiniteScroll } from "./useInfiniteScroll";
 

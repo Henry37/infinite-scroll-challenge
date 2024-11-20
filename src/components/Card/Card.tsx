@@ -7,7 +7,7 @@ export type CardProps = {
   price: number;
 };
 
-export function Card({ alt, src, name, price }: CardProps) {
+const Card = ({ alt, src, name, price }: CardProps) => {
   return (
     <div className="bg-gray-200 p-3 grow flex flex-col items-center">
       <div className="flex justify-between w-full">
@@ -32,3 +32,5 @@ export function Card({ alt, src, name, price }: CardProps) {
     </div>
   );
 }
+
+export default Card;
