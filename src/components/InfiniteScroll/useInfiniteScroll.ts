@@ -49,5 +49,6 @@ export const useInfiniteScroll = (props: InfiniteScrollProps) => {
     showButton,
     loadMoreRef,
     handleButtonClick,
+    handleObserver,
   };
 };
