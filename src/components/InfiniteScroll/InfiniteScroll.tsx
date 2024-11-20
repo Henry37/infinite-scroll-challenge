@@ -1,9 +1,9 @@
-import { useEffect, useRef, useCallback, useState } from "react";
 import { Product } from "../../interfaces/product";
 import { Card } from "../Card/Card";
 import styles from "./InfiniteScroll.module.css";
+import { useInfiniteScroll } from "./useInfiniteScroll";
 
-interface InfiniteScrollProps {
+export interface InfiniteScrollProps {
   autoLoad: number;
   limit: number;
   items: Product[];
@@ -13,44 +13,9 @@ interface InfiniteScrollProps {
 }
 
 const InfiniteScroll = (props: InfiniteScrollProps) => {
-  const { autoLoad, limit, isLoading, hasMore, items, loadMore } = props;
-  const [loadTimes, setLoadTimes] = useState<number>(0);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const showButton = loadTimes >= autoLoad && !isLoading && hasMore;
-
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (loadTimes < autoLoad && target.isIntersecting && !isLoading && hasMore) {
-        loadMore(items.length, limit);
-        setLoadTimes(loadTimes + 1);
-      }
-    },
-    [loadTimes, autoLoad, isLoading, hasMore, loadMore, items.length, limit],
-  );
-
-  const handleButtonClick = () => {
-    setLoadTimes(loadTimes + 1);
-    loadMore(items.length, limit);
-  };
-
-  useEffect(() => {
-    if (observerRef.current) observerRef.current.disconnect();
-
-    observerRef.current = new IntersectionObserver(handleObserver, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1.0,
-    });
-
-    if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
-
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect();
-    };
-  }, [handleObserver]);
-
+  const { items, isLoading, hasMore } = props;
+  const { showButton, loadMoreRef, handleButtonClick } =
+    useInfiniteScroll(props);
   return (
     <div className="my-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-center justify-center">
@@ -75,7 +40,7 @@ const InfiniteScroll = (props: InfiniteScrollProps) => {
           <p className="text-gray-500">End of the product list</p>
         </div>
       )}
-      { showButton && (
+      {showButton && (
         <div className="my-8 flex items-center justify-center">
           <button
             onClick={handleButtonClick}

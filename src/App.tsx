@@ -1,48 +1,19 @@
-import { useState } from "react";
 import "./App.css";
 import InfiniteScroll from "./components/InfiniteScroll/InfiniteScroll";
-import { Product } from "./interfaces/product";
 import { PaginatedDataFetcher } from "./data/PaginatedDataFetcher";
-import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./constants/urls";
+import { BASE_URL } from "./constants/urls";
 import {
   DEFAULT_SCROLL_AUTOLOAD,
   DEFAULT_SCROLL_LIMIT,
 } from "./constants/infinitScroll";
-import { LimitedProductData } from "./interfaces/response";
-import { isLimitedProductData } from "./guards/responseGuard";
 import Nav from "./components/Nav/Nav";
 import HeroBanner from "./components/HeroBanner/HeroBanner";
+import { useApp } from "./useApp";
 
 const dataFetcher = new PaginatedDataFetcher(BASE_URL);
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
-  const loadMore = async (skip: number, limit: number) => {
-    setIsLoading(true);
-    try {
-      const data = await dataFetcher.fetchPaginatedData<LimitedProductData>(
-        PRODUCT_PATH,
-        limit,
-        skip,
-        SELECT_PARAMS,
-      );
-
-      if (!isLimitedProductData(data)) {
-        throw new Error("Data is not of type LimitedProductData");
-      }
-
-      setProducts((prevProducts) => [...prevProducts, ...data.products]);
-      setHasMore(data.products.length >= limit);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { products, isLoading, hasMore, loadMore } = useApp(dataFetcher);
 
   return (
     <div>
