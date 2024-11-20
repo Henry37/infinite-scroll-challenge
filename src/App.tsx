@@ -7,6 +7,7 @@ import { BASE_URL, PRODUCT_PATH, SELECT_PARAMS } from "./constants/urls";
 import { DEFAULT_SCROLL_AUTOLOAD, DEFAULT_SCROLL_LIMIT } from "./constants/infinitScroll";
 import { LimitedProductData } from "./interfaces/response";
 import { isLimitedProductData } from "./guards/responseGuard";
+import Nav from "./components/Nav/Nav";
 
 const dataFetcher = new PaginatedDataFetcher(BASE_URL);
 
@@ -40,13 +41,8 @@ function App() {
   };
 
   return (
-    <>
-      <nav className="absolute top-0 left-0 flex items-center justify-between w-full px-20 pt-4">
-        <a className="text-white font-normal">Function</a>
-        <a className="text-white font-normal">Collection</a>
-        <a className="text-white font-normal">Configuration</a>
-        <a className="text-white font-normal">About</a>
-      </nav>
+    <div>
+      <Nav />
       <main className="flex flex-col grow">
         <section
           style={{
@@ -73,7 +69,7 @@ function App() {
           />
         </section>
       </main>
-    </>
+    </div>
   );
 }
 
